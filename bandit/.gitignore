@@ -23,3 +23,6 @@ yarn-error.log*
 /src/index.css
 /src/index.js
 /src/registerServiceWorker.js
+
+# Removing CSS files (build products) from src control
+src/**/*.css
