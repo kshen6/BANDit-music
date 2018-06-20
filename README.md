@@ -12,6 +12,7 @@ Music app for social good
 * add Flow [here](https://medium.freecodecamp.org/why-use-static-types-in-javascript-part-1-8382da1e0adb)
 * add Pace.js
 * [Jest](https://facebook.github.io/jest/) for testing
+* normalize.css
 
 ## Development TODOs - complete
 * SASS - integrate so ` npm start ` integrates with ` npm run watch-css `

@@ -1,0 +1,16 @@
+.Home {
+  text-align: center; }
+
+#welcome img {
+  height: 10rem;
+  width: auto;
+  margin: 4rem 0; }
+
+.col {
+  float: left;
+  width: 33%; }
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both; }
