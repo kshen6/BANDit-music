@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import "./Account.css";
+import "./Activity.css";
 
-class Account extends Component {
+class Activity extends Component {
     constructor(props){
         super(props);
         this.state = { items: [], text: '' };
@@ -12,7 +12,7 @@ class Account extends Component {
     
     render () {
         return (
-            <div className="Account">
+            <div className="Activity">
                 <userList items={this.state.items} />
                 <form onSubmit={this.handleSubmit}>
                     <label htmlFor="new-user">
@@ -63,4 +63,4 @@ class userList extends Component {
     }
 }
 
-export default Account;
+export default Activity;

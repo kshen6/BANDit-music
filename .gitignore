@@ -1,5 +1,3 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
-
 # dependencies
 /node_modules
 
@@ -19,3 +17,12 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# vestiges from create-react-app
+/src/App.test.js
+/src/index.css
+/src/index.js
+/src/registerServiceWorker.js
+
+# Removing CSS files (build products) from src control
+src/**/*.css

@@ -4,11 +4,11 @@ import {
   HashRouter,
 } from "react-router-dom";
 
-import './App.css';
-
 import Home from './Home/Home.js';
-import About from './About/About.js';
-import Account from './Account/Account.js';
+import Marketplace from './Marketplace/Marketplace.js';
+import Activity from './Activity/Activity.js';
+import Profile from './Profile/Profile.js';
+import "./App/App.css";
 
 class App extends Component {
   render() {
@@ -16,8 +16,9 @@ class App extends Component {
       <HashRouter>
         <div className="App">
           <Route exact path="/" component={Home}/>
-          <Route path="/About" component={About}/>
-          <Route path="/Account" component={Account}/>
+          <Route path="/marketplace" component={Marketplace}/>
+          <Route path="/activity" component={Activity}/>
+          <Route path="/profile" component={Profile}/>
         </div>
       </HashRouter>
     );
