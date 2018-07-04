@@ -4,6 +4,7 @@ import {
   HashRouter,
 } from "react-router-dom";
 
+import BANDitHead from './BANDitHead/BANDitHead.js';
 import Home from './Home/Home.js';
 import Marketplace from './Marketplace/Marketplace.js';
 import Activity from './Activity/Activity.js';
@@ -14,7 +15,8 @@ class App extends Component {
   render() {
     return (
       <HashRouter>
-        <div className="App">
+        <div className="container App">
+          <BANDitHead />
           <Route exact path="/" component={Home}/>
           <Route path="/marketplace" component={Marketplace}/>
           <Route path="/activity" component={Activity}/>

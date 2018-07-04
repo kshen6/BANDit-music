@@ -1,25 +1,16 @@
 .Home {
-  text-align: center; }
+  margin: 2rem; }
 
 #welcome img {
   height: 10rem;
   width: auto;
-  margin: 4rem 0; }
+  margin: 2rem 0; }
 
-a :link {
-  text-decoration: none; }
-
-a :visited {
-  text-decoration: none; }
-
-a :hover {
-  text-decoration: none; }
-
-.col {
+#welcome .col {
   float: left;
-  width: 33%; }
+  min-width: 20%; }
 
-.row:after {
+#welcome .row:after {
   content: "";
   display: table;
   clear: both; }

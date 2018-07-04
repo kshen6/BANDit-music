@@ -1,0 +1,25 @@
+#profile-img {
+  max-width: 10rem;
+  height: auto;
+}
+
+.UserInfo {
+  .col {
+    float: left;
+  }
+  .col-2 {
+    width: 25%;
+  }
+  .col-6 {
+    max-width: 75%;
+  }
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+.Profile {
+  margin: 2rem;
+}

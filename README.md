@@ -2,7 +2,6 @@
 Music app for social good
 
 ## Development TODOs
-* JSX
 * Create Node REST API for user data
 * (Potentially) Add Redux
 * add ESLint
