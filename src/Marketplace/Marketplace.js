@@ -98,9 +98,7 @@ class UserList extends Component {
     render () {
         return (
             <div className="UserList">
-                {this.state.userList.map(user => (
-                    this.displayUser(user)
-                ))}
+                
             </div>
         );
     }

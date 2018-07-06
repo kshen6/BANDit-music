@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import "./Profile.css";
 
-let signedIn = false;
+let signedIn = true;
 
 let exampleUser = {
     'userInfo': {
@@ -81,6 +81,10 @@ class MakeAccount extends Component {
 }
 
 class UserInfo extends Component {
+    lookingFor(list) {
+        return JSON.stringify(list);
+    }
+
     render () {
         return (
             <div className="row UserInfo">
@@ -92,19 +96,20 @@ class UserInfo extends Component {
                     />
                 </div>
                 <div className="col col-6">
-                    <h4>Name: {this.props.user.userInfo.name}</h4>
-                    <h4>Email: {this.props.user.userInfo.email}</h4>
-                    <h4>
-                        Instrument{this.props.user.userInfo.instruments.length > 1 ? "s" : ""} played: {this.props.user.userInfo.instruments.join(', ')}
-                    </h4>
-                    <h4>
-                        You are looking for:
-                        {this.props.user.userInfo.looking.jams && 'jams, '}
-                        {this.props.user.userInfo.looking.concerts && 'concerts, '}
-                        {this.props.user.userInfo.looking.performances && 'performances, '}
-                        {this.props.user.userInfo.looking.bands && 'bands. '}
-                        {this.props.user.userInfo.looking.other.length > 0 && this.props.user.userInfo.looking.other}
-                    </h4>
+                    <h1>{this.props.user.userInfo.name}</h1>
+                    <i className="fa fa-envelope-o" aria-hidden="true"></i>
+                    <h4>{this.props.user.userInfo.email}</h4>
+                    <hr />
+                    <i className="fa fa-music" aria-hidden="true"></i>
+                    <h4>{this.props.user.userInfo.instruments.join(', ')}</h4>
+                    <hr />
+                    <i className="fa fa-headphones" aria-hidden="true"></i>
+                    <h4>{this.props.user.userInfo.genres.join(', ')}</h4>
+                    <hr />
+                    <span>Currently looking for: </span>
+                    <ul>
+                    
+                    </ul>
                 </div>
             </div>
         );

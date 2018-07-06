@@ -1,11 +1,21 @@
 #profile-img {
   max-width: 10rem;
   height: auto;
+  display: block;
+  margin: auto;
+  border-radius: 10%;
 }
 
 .UserInfo {
+  h4 {
+    display: inline;
+  }
+  i {
+    padding-right: 1.5rem;
+  }
   .col {
     float: left;
+    margin: 0 1rem;
   }
   .col-2 {
     width: 25%;
@@ -21,5 +31,5 @@
 }
 
 .Profile {
-  margin: 2rem;
+  padding: 2rem;
 }
