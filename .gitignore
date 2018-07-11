@@ -1,5 +1,5 @@
 # dependencies
-/node_modules
+/node_modules/
 
 # testing
 /coverage
@@ -19,10 +19,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # vestiges from create-react-app
-/src/App.test.js
-/src/index.css
 /src/index.js
-/src/registerServiceWorker.js
 
 # Practice
 /archived/

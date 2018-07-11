@@ -1,16 +1,19 @@
 .Home {
-  margin: 2rem; }
+  margin: 2rem;
+}
 
 #welcome img {
   height: 10rem;
   width: auto;
-  margin: 2rem 0; }
+  margin: 2rem 0;
+}
 
-#welcome .col {
-  float: left;
-  min-width: 20%; }
-
-#welcome .row:after {
-  content: "";
-  display: table;
-  clear: both; }
+#welcome .row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+#welcome .row .col-sm-2 {
+  display: flex;
+  justify-content: center;
+}

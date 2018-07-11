@@ -1,20 +1,20 @@
-import React, { Component } from "react";
-import "./Home.css";
+import React, { Component } from 'react';
+import './Home.css';
 
-import logo from "./../img/bandit-logo.png";
+import logo from './../img/bandit-logo.png';
 
 class Home extends Component {
-  render () {
+  render() {
     return (
       <div className="Home">
         <div id="welcome" className="container-fluid">
           <div className="row">
-            <div className="col">
+            <div className="col-sm-2">
               <img src={logo} alt="logo" />
             </div>
-            <div className="col">
+            <div className="col-sm">
               <h1>Welcome to BANDit!</h1>
-              <h3>A progressive social platform for student musicians</h3>
+              <h4>A progressive social platform for student musicians</h4>
             </div>
           </div>
         </div>

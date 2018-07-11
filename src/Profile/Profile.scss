@@ -1,35 +1,50 @@
-#profile-img {
-  max-width: 10rem;
-  height: auto;
-  display: block;
-  margin: auto;
-  border-radius: 10%;
-}
+$grey: #eaf2ff;
 
 .UserInfo {
-  h4 {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1.4rem;
+  h5 {
     display: inline;
   }
   i {
     padding-right: 1.5rem;
   }
-  .col {
-    float: left;
-    margin: 0 1rem;
+  div {
+    margin: 1rem;
   }
-  .col-2 {
-    width: 25%;
+  img {
+    height: 12rem;
+    width: 10rem;
+    overflow: hidden;
+    flex-shrink: 0;
+    border-radius: 10%;
   }
-  .col-6 {
-    max-width: 75%;
+  .UserDetails {
+    flex-basis: 16rem;
+    flex-grow: 0.2;
+    flex-shrink: 1;
+    h5, span {
+      font-weight: 450;
+    }
   }
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
+}
+
+.MakeAccount {
+  Input {
+    background-color: inherit;
+    border: none;
+    border-bottom: 2px solid grey;
+    padding: 0.7rem 1.1rem;
+    margin: 8px 0;
+    box-sizing: border-box;
+    &:focus {
+      border-bottom: 3px solid black;
+      background-color: inherit;
+    }
   }
 }
 
 .Profile {
-  padding: 2rem;
+  padding: 2rem 3rem;
 }

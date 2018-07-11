@@ -1,130 +1,148 @@
 import React, { Component } from 'react';
-import "./Profile.css";
-
-let signedIn = true;
+import {
+  Col,
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  FormText
+} from 'reactstrap';
+import './Profile.css';
+import { Media } from 'reactstrap';
+import Post from './../Post/Post.js';
 
 let exampleUser = {
-    'userInfo': {
-        'name': 'Miles Davis',
-        'email': 'milesdavis@milesdavis.com',
-        'photoURL': 'https://vignette.wikia.nocookie.net/marvelcinematicuniverse/images/e/e8/Miles_Davis.jpeg/revision/latest?cb=20161003223700',
-        'instruments': [
-            'guitar',
-            'piano'
-        ],
-        'looking': {
-            'jams': true,
-            'concerts': true,
-            'performances': true,
-            'band': true,
-            'other': [
-            ]
-        },
-        'genres': [
-            'classical',
-            'rock',
-        ]
-    },
-    'activity': [
-        'looking for someone to play Radiohead with',
-        'had a great time at the Charlie Puth concert!'
-    ],
-    'preferences': {
-        'profilePublic': true,
-    }
-}
+  name: 'Neil Young',
+  email: 'neil@neil.com',
+  instruments: ['guitar', 'piano'],
+  genres: ['rock', 'trap']
+};
 
 class MakeAccount extends Component {
-    constructor(props){
-        super(props);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.state = {
-            text: '',
-        };
-    }
-
-    render () {
-        return (
-            <div className="MakeAccount">
-                <form onSubmit={this.handleSubmit}>
-                    <label htmlFor="instrument">
-                        Instrument played:
-                    </label>
-                    <input
-                        id="instrument"
-                        onChange={this.handleChange}
-                        value={this.state.text}
-                    />
-                    <button>
-                        Submit
-                    </button>
-                </form>
-            </div>
-        );
-    }
-
-    handleChange(e) {
-        this.setState({text: e.target.value });
-    }
-
-    handleSubmit(e) {
-        e.preventDefault(); //don't reload window
-        if (!this.state.text.length) {
-            return;
-        }
-        this.setState(() => ({
-            instrument: this.state.text,
-            text: '',
-        }));
-    }
+  render() {
+    return (
+      <Form className="MakeAccount">
+        <h2>Make an Account</h2>
+        <FormGroup row>
+          <Label for="name" sm={1}>
+            Name:
+          </Label>
+          <Col sm={6}>
+            <Input
+              type="name"
+              name="name"
+              id="name"
+              placeholder="Your name here..."
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label for="username" sm={1}>
+            Username:
+          </Label>
+          <Col sm={6}>
+            <Input
+              type="username"
+              name="username"
+              id="username"
+              placeholder="Your username here..."
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label for="password" sm={1}>
+            Password:
+          </Label>
+          <Col sm={6}>
+            <Input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Your password here..."
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label for="genre" sm={1}>
+            Genre(s):
+          </Label>
+          <Col sm={6}>
+            <Input type="select" name="genre" id="genre" multiple />
+          </Col>
+        </FormGroup>
+        <FormGroup row>
+          <Label for="suggestions" sm={1}>
+            Suggestions?
+          </Label>
+          <Col sm={6}>
+            <Input type="textarea" name="text" id="suggestions" />
+          </Col>
+        </FormGroup>
+        <FormGroup check row>
+          <Col sm={{ size: 6, offset: 1 }}>
+            <Button>Sign up!</Button>
+            <FormText color="muted">
+              Please note that BANDit is currently offered only to Stanford
+              students.
+            </FormText>
+          </Col>
+        </FormGroup>
+      </Form>
+    );
+  }
 }
 
 class UserInfo extends Component {
-    lookingFor(list) {
-        return JSON.stringify(list);
-    }
-
-    render () {
-        return (
-            <div className="row UserInfo">
-                <div className="col col-2">
-                    <img
-                        id="profile-img"
-                        src={this.props.user.userInfo.photoURL}
-                        alt="profile"
-                    />
-                </div>
-                <div className="col col-6">
-                    <h1>{this.props.user.userInfo.name}</h1>
-                    <i className="fa fa-envelope-o" aria-hidden="true"></i>
-                    <h4>{this.props.user.userInfo.email}</h4>
-                    <hr />
-                    <i className="fa fa-music" aria-hidden="true"></i>
-                    <h4>{this.props.user.userInfo.instruments.join(', ')}</h4>
-                    <hr />
-                    <i className="fa fa-headphones" aria-hidden="true"></i>
-                    <h4>{this.props.user.userInfo.genres.join(', ')}</h4>
-                    <hr />
-                    <span>Currently looking for: </span>
-                    <ul>
-                    
-                    </ul>
-                </div>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div className="row UserInfo">
+        <Media>
+          <Media left>
+            <Media
+              object
+              src={
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Neil_Young_in_Austin%2C_1976.jpg/170px-Neil_Young_in_Austin%2C_1976.jpg'
+              }
+              alt="Profile image"
+            />
+          </Media>
+        </Media>
+        <div className="col-sm-5 UserDetails">
+          <h1>{this.props.user.name}</h1>
+          <i className="fa fa-envelope-o" aria-hidden="true" />
+          <h5>{this.props.user.email}</h5>
+          <hr />
+          <i className="fa fa-music" aria-hidden="true" />
+          <h5>{this.props.user.instruments.join(', ')}</h5>
+          <hr />
+          <i className="fa fa-headphones" aria-hidden="true" />
+          <h5>{this.props.user.genres.join(', ')}</h5>
+          <hr />
+          <span>Currently looking for: </span>
+          <ul />
+        </div>
+      </div>
+    );
+  }
 }
 
 class Profile extends Component {
-    render () {
-        return (
-            <div className="Profile">
-                {!signedIn && <MakeAccount />}
-                {signedIn && <UserInfo user={exampleUser} />}
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div className="Profile">
+        {false && <MakeAccount />}
+        {true && (
+          <div>
+            <UserInfo user={exampleUser} />
+            <hr />
+            <h3>Recent activity</h3>
+            <Post />
+          </div>
+        )}
+      </div>
+    );
+  }
 }
 
 export default Profile;

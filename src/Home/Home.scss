@@ -8,15 +8,13 @@
     width: auto;
     margin: 2rem 0;
   }
-
-  .col {
-    float: left;
-    min-width: 20%;
-  }
-    
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
+  .row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    .col-sm-2 {
+      display: flex;
+      justify-content: center;
+    }
   }
 }
