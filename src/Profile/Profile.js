@@ -20,72 +20,134 @@ let exampleUser = {
 };
 
 class MakeAccount extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      email: '',
+      password: '',
+      genres: [],
+      suggestions: ''
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  validate() {
+    return (
+      this.state.email.indexOf('@stanford.edu') !== -1 &&
+      this.state.name.length > 0 &&
+      this.state.password.length > 6
+    );
+  }
+
+  handleChange = e => {
+    const value = e.target.value;
+    const name = e.target.name;
+    this.setState({
+      [name]: value
+    });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+  };
+
   render() {
     return (
-      <Form className="MakeAccount">
+      <Form className="MakeAccount" onSubmit={this.handleSubmit}>
         <h2>Make an Account</h2>
         <FormGroup row>
-          <Label for="name" sm={1}>
+          <Label for="name" sm={2}>
             Name:
           </Label>
-          <Col sm={6}>
+          <Col md={6}>
             <Input
-              type="name"
+              type="text"
               name="name"
-              id="name"
+              id="name-input"
               placeholder="Your name here..."
+              value={this.state.name}
+              onChange={this.handleChange}
             />
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label for="username" sm={1}>
-            Username:
+          <Label for="email" sm={2}>
+            Email:
           </Label>
-          <Col sm={6}>
+          <Col md={6}>
             <Input
-              type="username"
-              name="username"
-              id="username"
+              type="text"
+              name="email"
+              id="email-input"
               placeholder="Your username here..."
+              value={this.state.email}
+              onChange={this.handleChange}
             />
+            <FormText color="muted">
+              Please sign up with an 'at' stanford.edu email, as this is only
+              offered to Stanford students currently.
+            </FormText>
           </Col>
         </FormGroup>
         <FormGroup row>
-          <Label for="password" sm={1}>
+          <Label for="password" sm={2}>
             Password:
           </Label>
-          <Col sm={6}>
+          <Col md={6}>
             <Input
               type="password"
               name="password"
-              id="password"
+              id="password-input"
               placeholder="Your password here..."
+              value={this.state.password}
+              onChange={this.handleChange}
+            />
+            <FormText color="muted">
+              Make sure your password is at least 6 characters long!
+            </FormText>
+          </Col>
+        </FormGroup>
+        <FormGroup row className="big-row">
+          <Label for="genre" sm={2}>
+            Genre(s):
+          </Label>
+          <Col md={6}>
+            <Input
+              style={{ backgroundColor: 'inherit', border: '2px solid grey' }}
+              type="select"
+              name="genre"
+              id="genre-input"
+              multiple
+            >
+              <option>Rock</option>
+              <option>Classic</option>
+              <option>Trap</option>
+            </Input>
+          </Col>
+        </FormGroup>
+        <FormGroup row className="big-row">
+          <Label for="suggestions" sm={2}>
+            Suggestions?
+          </Label>
+          <Col md={6}>
+            <Input
+              style={{ backgroundColor: 'inherit', border: '2px solid grey' }}
+              type="textarea"
+              name="suggestions"
+              value={this.state.suggestions}
+              onChange={this.handleChange}
+              id="suggestions-input"
             />
           </Col>
         </FormGroup>
-        <FormGroup row>
-          <Label for="genre" sm={1}>
-            Genre(s):
-          </Label>
-          <Col sm={6}>
-            <Input type="select" name="genre" id="genre" multiple />
-          </Col>
-        </FormGroup>
-        <FormGroup row>
-          <Label for="suggestions" sm={1}>
-            Suggestions?
-          </Label>
-          <Col sm={6}>
-            <Input type="textarea" name="text" id="suggestions" />
-          </Col>
-        </FormGroup>
         <FormGroup check row>
-          <Col sm={{ size: 6, offset: 1 }}>
-            <Button>Sign up!</Button>
-            <FormText color="muted">
-              Please note that BANDit is currently offered only to Stanford
-              students.
-            </FormText>
+          <Col md={{ size: 6, offset: 2 }}>
+            <Button disabled={!this.validate()} type="submit">
+              Sign up!
+            </Button>
           </Col>
         </FormGroup>
       </Form>
@@ -131,8 +193,8 @@ class Profile extends Component {
   render() {
     return (
       <div className="Profile">
-        {false && <MakeAccount />}
-        {true && (
+        {true && <MakeAccount />}
+        {false && (
           <div>
             <UserInfo user={exampleUser} />
             <hr />
