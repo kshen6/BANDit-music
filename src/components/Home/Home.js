@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Home.css';
 
-import logo from './../img/bandit-logo.png';
+import logo from '../../assets/img/bandit-logo.png';
 
 class Home extends Component {
   render() {

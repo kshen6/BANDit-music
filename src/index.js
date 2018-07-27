@@ -1,12 +1,12 @@
 /* App */
 import React from 'react';
 import { render } from 'react-dom';
-import App from './App';
+import App from './components/App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 /* Redux */
 import { Provider } from 'react-redux';
-import store from './store/index';
+import store from './redux/store/index';
 
 /* Amplify */
 import Amplify from 'aws-amplify';

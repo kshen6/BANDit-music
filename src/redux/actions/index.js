@@ -1,4 +1,4 @@
-import { LOGGED } from '../constants/actiontypes';
+import { LOGGED } from '../../assets/constants/actiontypes';
 
 /* action creators */
 export const toggleLogged = logged => ({

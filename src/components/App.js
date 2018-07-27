@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
-import { HashRouter } from 'react-router-dom';
+import { HashRouter, Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { toggleLogged } from '../redux/actions/index';
 
 import { Auth } from 'aws-amplify';
 
 import BANDitHead from './BANDitHead/BANDitHead';
-import Content from './Content';
+import Home from './Home/Home';
+import Marketplace from './Marketplace/Marketplace';
+import Activity from './Activity/Activity';
+import Profile from './Profile/Profile';
+import Login from './Auth/Auth';
 import './App/App.css';
-
-import { connect } from 'react-redux';
-import { toggleLogged } from './actions/index';
 
 const mapDispatchToProps = dispatch => {
   return {
     toggleLogged: logged => dispatch(toggleLogged(logged))
   };
 };
+
 class ConnectedApp extends Component {
   async componentDidMount() {
     try {
@@ -33,7 +37,13 @@ class ConnectedApp extends Component {
       <HashRouter>
         <div className="App container-fluid">
           <BANDitHead />
-          <Content />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/marketplace" component={Marketplace} />
+            <Route path="/activity" component={Activity} />
+            <Route path="/profile" component={Profile} />
+            <Route path="/auth" component={Login} />
+          </Switch>
         </div>
       </HashRouter>
     );

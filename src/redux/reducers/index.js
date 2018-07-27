@@ -4,7 +4,7 @@
  * 2nd arg: action
  */
 
-import { LOGGED } from '../constants/actiontypes';
+import { LOGGED } from '../../assets/constants/actiontypes';
 
 const initState = {
   logged: false,

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { toggleLogged } from '../actions/index';
+import { toggleLogged } from '../../redux/actions/index';
 import {
   Col,
   Button,

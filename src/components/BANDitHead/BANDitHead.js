@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { NavLink, HashRouter } from 'react-router-dom';
 
 import './BANDitHead.css';
-import logo from './../img/bandit-logo.png';
+import logo from '../../assets/img/bandit-logo.png';
 
 import { connect } from 'react-redux';
 
