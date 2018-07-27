@@ -19,17 +19,20 @@ let exampleUser = {
   genres: ['rock', 'trap']
 };
 
-class MakeAccount extends Component {
+var show = 'UserInfo';
+
+class EditProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      email: '',
+      name: exampleUser.name,
+      email: exampleUser.email,
       password: '',
       genres: [],
       suggestions: ''
     };
 
+    this.store = this.props.store;
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -50,14 +53,15 @@ class MakeAccount extends Component {
     });
   };
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
   };
 
   render() {
     return (
-      <Form className="MakeAccount" onSubmit={this.handleSubmit}>
-        <h2>Make an Account</h2>
+      <Form className="EditAccount" onSubmit={this.handleSubmit}>
+        <h2>{exampleUser.name}</h2>
+        <h5>Edit profile</h5>
         <FormGroup row>
           <Label for="name" sm={2}>
             Name:
@@ -156,33 +160,43 @@ class MakeAccount extends Component {
 }
 
 class UserInfo extends Component {
+  edit() {
+    show = 'EditProfile';
+  }
   render() {
     return (
-      <div className="row UserInfo">
-        <Media>
-          <Media left>
-            <Media
-              object
-              src={
-                'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Neil_Young_in_Austin%2C_1976.jpg/170px-Neil_Young_in_Austin%2C_1976.jpg'
-              }
-              alt="Profile image"
-            />
+      <div>
+        <div className="row UserInfo">
+          <Media>
+            <Media left>
+              <Media
+                object
+                src={
+                  'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Neil_Young_in_Austin%2C_1976.jpg/170px-Neil_Young_in_Austin%2C_1976.jpg'
+                }
+                alt="Profile image"
+              />
+            </Media>
           </Media>
-        </Media>
-        <div className="col-sm-5 UserDetails">
-          <h1>{this.props.user.name}</h1>
-          <i className="fa fa-envelope-o" aria-hidden="true" />
-          <h5>{this.props.user.email}</h5>
-          <hr />
-          <i className="fa fa-music" aria-hidden="true" />
-          <h5>{this.props.user.instruments.join(', ')}</h5>
-          <hr />
-          <i className="fa fa-headphones" aria-hidden="true" />
-          <h5>{this.props.user.genres.join(', ')}</h5>
-          <hr />
-          <span>Currently looking for: </span>
-          <ul />
+          <div className="col-sm-5 UserDetails">
+            <h1>{this.props.user.name}</h1>
+            <i className="fa fa-envelope-o" aria-hidden="true" />
+            <h5>{this.props.user.email}</h5>
+            <hr />
+            <i className="fa fa-music" aria-hidden="true" />
+            <h5>{this.props.user.instruments.join(', ')}</h5>
+            <hr />
+            <i className="fa fa-headphones" aria-hidden="true" />
+            <h5>{this.props.user.genres.join(', ')}</h5>
+            <hr />
+            <span>Currently looking for: </span>
+            <ul />
+          </div>
+        </div>
+        <div className="row">
+          <button className="btn" onClick={this.edit()}>
+            Edit profile
+          </button>
         </div>
       </div>
     );
@@ -193,15 +207,13 @@ class Profile extends Component {
   render() {
     return (
       <div className="Profile">
-        {true && <MakeAccount />}
-        {false && (
-          <div>
-            <UserInfo user={exampleUser} />
-            <hr />
-            <h3>Recent activity</h3>
-            <Post />
-          </div>
-        )}
+        <div>
+          {show === 'UserInfo' && <UserInfo user={exampleUser} />}
+          {show === 'EditProfile' && <EditProfile user={exampleUser} />}
+          <hr />
+          <h3>Recent activity</h3>
+          <Post />
+        </div>
       </div>
     );
   }

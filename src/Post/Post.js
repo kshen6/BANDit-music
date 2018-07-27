@@ -9,6 +9,11 @@ let post = {
 };
 
 class Post extends Component {
+  constructor(props) {
+    super(props);
+    this.store = this.props.store;
+  }
+
   render() {
     return (
       <div className="Post">

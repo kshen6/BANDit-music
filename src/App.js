@@ -1,27 +1,48 @@
 import React, { Component } from 'react';
-import { Route, HashRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
-import BANDitHead from './BANDitHead/BANDitHead.js';
-import Home from './Home/Home.js';
-import Marketplace from './Marketplace/Marketplace.js';
-import Activity from './Activity/Activity.js';
-import Profile from './Profile/Profile.js';
+import { Auth } from 'aws-amplify';
+
+import BANDitHead from './BANDitHead/BANDitHead';
+import Content from './Content';
 import './App/App.css';
 
-class App extends Component {
+import { connect } from 'react-redux';
+import { toggleLogged } from './actions/index';
+
+const mapDispatchToProps = dispatch => {
+  return {
+    toggleLogged: logged => dispatch(toggleLogged(logged))
+  };
+};
+class ConnectedApp extends Component {
+  async componentDidMount() {
+    try {
+      if (await Auth.currentSession()) {
+        this.props.toggleLogged(true);
+      }
+    } catch (e) {
+      if (e !== 'No current user') {
+        alert(e);
+      }
+    }
+  }
+
   render() {
     return (
       <HashRouter>
         <div className="App container-fluid">
           <BANDitHead />
-          <Route exact path="/" component={Home} />
-          <Route path="/marketplace" component={Marketplace} />
-          <Route path="/activity" component={Activity} />
-          <Route path="/profile" component={Profile} />
+          <Content />
         </div>
       </HashRouter>
     );
   }
 }
+
+const App = connect(
+  null,
+  mapDispatchToProps
+)(ConnectedApp);
 
 export default App;

@@ -1,5 +1,4 @@
 $site-primary-color: rgb(231, 211, 211);
-
 .BANDitHead {
   display: flex;
   flex-wrap: wrap;
@@ -8,53 +7,66 @@ $site-primary-color: rgb(231, 211, 211);
   background-color: white;
   overflow: hidden;
   font-size: 1.1rem;
-  -webkit-box-shadow: 0px 10px 8px -2px rgba(179,179,179,1);
-  -moz-box-shadow: 0px 10px 8px -2px rgba(179,179,179,1);
-  box-shadow: 0px 10px 8px -2px rgba(179,179,179,1);
+  -webkit-box-shadow: 0px 10px 8px -2px rgba(179, 179, 179, 1);
+  -moz-box-shadow: 0px 10px 8px -2px rgba(179, 179, 179, 1);
+  box-shadow: 0px 10px 8px -2px rgba(179, 179, 179, 1);
   img {
     max-height: 2.5rem;
   }
   * {
     margin: 0 0.6rem;
   }
-}
-
-.link {
-  color: black;
-  text-decoration: none;
-  padding: 1.5rem 0.8rem;
-  &:hover {
-    text-decoration: none;
-    color: inherit;
+  span {
+    margin: 0;
+    padding: 0;
   }
-
-  cursor: pointer;
-  position: relative;
-  z-index: 0;
-}
-
-.link:before, .link:after {
-  position: absolute;
-  color: $site-primary-color;
-  opacity: 0;
-  top: inherit;
-  transition: all 0.2s;
-  font-weight: bolder;
-}
-
-.link:before {
-  content: '(';
-  left: 0px;
-  transform: translateX(10px);
-}
-
-.link:after {
-  content: ')';
-  right: 0px;
-  transform: translateX(-10px);
-}
-
-.link:hover:before, :hover:after {
-  opacity: 1;
-  transform: translateX(0px);
+  i {
+    margin: 0;
+  }
+  @media screen and (min-width: 0px) and (max-width: 436px) {
+    span {
+      display: none;
+    }
+  }
+  @media screen and (min-width: 437px) {
+    i {
+      display: none;
+    }
+    .link:before,
+    .link:after {
+      position: absolute;
+      color: $site-primary-color;
+      opacity: 0;
+      top: inherit;
+      transition: all 0.2s;
+      font-weight: bolder;
+    }
+    .link:before {
+      content: '(';
+      left: 0px;
+      transform: translateX(10px);
+    }
+    .link:after {
+      content: ')';
+      right: 0px;
+      transform: translateX(-10px);
+    }
+    .link:hover:before,
+    :hover:after {
+      opacity: 1;
+      transform: translateX(0px);
+    }
+  }
+  .link {
+    color: black;
+    text-decoration: none;
+    padding: 1.5rem 0.8rem;
+    &:hover {
+      text-decoration: none;
+      color: inherit;
+    }
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+  }
 }

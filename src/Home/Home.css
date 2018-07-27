@@ -17,3 +17,10 @@
   display: flex;
   justify-content: center;
 }
+
+.info {
+  margin: 2rem;
+}
+.info button {
+  margin: 1rem 0;
+}

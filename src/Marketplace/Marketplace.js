@@ -96,6 +96,11 @@ class UserList extends Component {
 }
 
 class Marketplace extends Component {
+  constructor(props) {
+    super(props);
+    this.store = this.props.store;
+  }
+
   render() {
     return (
       <div className="Marketplace">
