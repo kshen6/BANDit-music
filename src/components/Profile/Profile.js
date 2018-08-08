@@ -1,3 +1,4 @@
+/* React */
 import React, { Component } from 'react';
 import {
   Col,
@@ -8,9 +9,17 @@ import {
   Input,
   FormText
 } from 'reactstrap';
-import './Profile.css';
 import { Media } from 'reactstrap';
+import { connect } from 'react-redux';
+
+/* Assets */
+import './Profile.css';
 import Post from './../Post/Post.js';
+import EditAccount from './EditAccount';
+
+const mapStateToProps = state => {
+  return { logged: state.logged };
+};
 
 let exampleUser = {
   name: 'Neil Young',
@@ -59,102 +68,104 @@ class EditProfile extends Component {
 
   render() {
     return (
-      <Form className="EditAccount" onSubmit={this.handleSubmit}>
-        <h2>{exampleUser.name}</h2>
-        <h5>Edit profile</h5>
-        <FormGroup row>
-          <Label for="name" sm={2}>
-            Name:
-          </Label>
-          <Col md={6}>
-            <Input
-              type="text"
-              name="name"
-              id="name-input"
-              placeholder="Your name here..."
-              value={this.state.name}
-              onChange={this.handleChange}
-            />
-          </Col>
-        </FormGroup>
-        <FormGroup row>
-          <Label for="email" sm={2}>
-            Email:
-          </Label>
-          <Col md={6}>
-            <Input
-              type="text"
-              name="email"
-              id="email-input"
-              placeholder="Your username here..."
-              value={this.state.email}
-              onChange={this.handleChange}
-            />
-            <FormText color="muted">
-              Please sign up with an 'at' stanford.edu email, as this is only
-              offered to Stanford students currently.
-            </FormText>
-          </Col>
-        </FormGroup>
-        <FormGroup row>
-          <Label for="password" sm={2}>
-            Password:
-          </Label>
-          <Col md={6}>
-            <Input
-              type="password"
-              name="password"
-              id="password-input"
-              placeholder="Your password here..."
-              value={this.state.password}
-              onChange={this.handleChange}
-            />
-            <FormText color="muted">
-              Make sure your password is at least 6 characters long!
-            </FormText>
-          </Col>
-        </FormGroup>
-        <FormGroup row className="big-row">
-          <Label for="genre" sm={2}>
-            Genre(s):
-          </Label>
-          <Col md={6}>
-            <Input
-              style={{ backgroundColor: 'inherit', border: '2px solid grey' }}
-              type="select"
-              name="genre"
-              id="genre-input"
-              multiple
-            >
-              <option>Rock</option>
-              <option>Classic</option>
-              <option>Trap</option>
-            </Input>
-          </Col>
-        </FormGroup>
-        <FormGroup row className="big-row">
-          <Label for="suggestions" sm={2}>
-            Suggestions?
-          </Label>
-          <Col md={6}>
-            <Input
-              style={{ backgroundColor: 'inherit', border: '2px solid grey' }}
-              type="textarea"
-              name="suggestions"
-              value={this.state.suggestions}
-              onChange={this.handleChange}
-              id="suggestions-input"
-            />
-          </Col>
-        </FormGroup>
-        <FormGroup check row>
-          <Col md={{ size: 6, offset: 2 }}>
-            <Button disabled={!this.validate()} type="submit">
-              Sign up!
-            </Button>
-          </Col>
-        </FormGroup>
-      </Form>
+      <div>
+        <Form className="EditAccount" onSubmit={this.handleSubmit}>
+          <h2>{exampleUser.name}</h2>
+          <h5>Edit profile</h5>
+          <FormGroup row>
+            <Label for="name" sm={2}>
+              Name:
+            </Label>
+            <Col md={6}>
+              <Input
+                type="text"
+                name="name"
+                id="name-input"
+                placeholder="Your name here..."
+                value={this.state.name}
+                onChange={this.handleChange}
+              />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="email" sm={2}>
+              Email:
+            </Label>
+            <Col md={6}>
+              <Input
+                type="text"
+                name="email"
+                id="email-input"
+                placeholder="Your username here..."
+                value={this.state.email}
+                onChange={this.handleChange}
+              />
+              <FormText color="muted">
+                Please sign up with an 'at' stanford.edu email, as this is only
+                offered to Stanford students currently.
+              </FormText>
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label for="password" sm={2}>
+              Password:
+            </Label>
+            <Col md={6}>
+              <Input
+                type="password"
+                name="password"
+                id="password-input"
+                placeholder="Your password here..."
+                value={this.state.password}
+                onChange={this.handleChange}
+              />
+              <FormText color="muted">
+                Make sure your password is at least 6 characters long!
+              </FormText>
+            </Col>
+          </FormGroup>
+          <FormGroup row className="big-row">
+            <Label for="genre" sm={2}>
+              Genre(s):
+            </Label>
+            <Col md={6}>
+              <Input
+                style={{ backgroundColor: 'inherit', border: '2px solid grey' }}
+                type="select"
+                name="genre"
+                id="genre-input"
+                multiple
+              >
+                <option>Rock</option>
+                <option>Classic</option>
+                <option>Trap</option>
+              </Input>
+            </Col>
+          </FormGroup>
+          <FormGroup row className="big-row">
+            <Label for="suggestions" sm={2}>
+              Suggestions?
+            </Label>
+            <Col md={6}>
+              <Input
+                style={{ backgroundColor: 'inherit', border: '2px solid grey' }}
+                type="textarea"
+                name="suggestions"
+                value={this.state.suggestions}
+                onChange={this.handleChange}
+                id="suggestions-input"
+              />
+            </Col>
+          </FormGroup>
+          <FormGroup check row>
+            <Col md={{ size: 6, offset: 2 }}>
+              <Button disabled={!this.validate()} type="submit">
+                Sign up!
+              </Button>
+            </Col>
+          </FormGroup>
+        </Form>
+      </div>
     );
   }
 }
@@ -203,20 +214,44 @@ class UserInfo extends Component {
   }
 }
 
-class Profile extends Component {
+class ConnectedProfile extends Component {
+  constructor(props) {
+    super(props);
+    this.ensure = this.ensure.bind(this);
+  }
+
+  ensureAuth() {
+    return (
+      <p>
+        Please <button onClick={this.ensure}>login</button> to view this
+        content.
+      </p>
+    );
+  }
+
+  ensure() {
+    this.props.history.push('auth');
+  }
+
   render() {
     return (
       <div className="Profile">
-        <div>
-          {show === 'UserInfo' && <UserInfo user={exampleUser} />}
-          {show === 'EditProfile' && <EditProfile user={exampleUser} />}
-          <hr />
-          <h3>Recent activity</h3>
-          <Post />
-        </div>
+        {this.props.logged && (
+          <div>
+            <EditAccount />
+            {show === 'UserInfo' && <UserInfo user={exampleUser} />}
+            {show === 'EditProfile' && <EditProfile user={exampleUser} />}
+            <hr />
+            <h3>Recent activity</h3>
+            <Post />
+          </div>
+        )}
+        {!this.props.logged && this.ensureAuth()}
       </div>
     );
   }
 }
+
+const Profile = connect(mapStateToProps)(ConnectedProfile);
 
 export default Profile;

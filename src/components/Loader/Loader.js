@@ -10,8 +10,12 @@ export default ({
   disabled = false,
   ...props
 }) => (
-  <Button className={`Loader ${className}`} disabled={disabled || isLoading}>
+  <Button
+    className={`Loader ${className}`}
+    id="bandit-loader"
+    disabled={disabled || isLoading}
+  >
     {isLoading && <i className="fa fa-refresh spinning" aria-hidden="true" />}
-    {!isLoading ? text : loadingText}
+    {isLoading ? loadingText : text}
   </Button>
 );

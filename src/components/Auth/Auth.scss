@@ -1,6 +1,17 @@
 $grey: #eaf2ff;
 
-.Login {
+.Auth {
+  font-family: Raleway, Lato, 'Lucida Sans', Arial;
+  
+}
+
+.modal-content {
+  border-radius: 0 !important;
+}
+
+.login, .signup {
+  font-family: Raleway, Lato, 'Lucida Sans', Arial;
+  padding: 2rem 3rem;
   Input {
     background-color: inherit;
     border: none;
@@ -18,11 +29,18 @@ $grey: #eaf2ff;
     display: flex;
     align-items: center;
   }
-  .big-row Label {
-    align-self: flex-start;
+  .no-padding {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .alt-span {
+    color: rgb(241, 135, 135);
+    cursor: pointer;
   }
 }
 
-.Login {
-  padding: 2rem 3rem;
+.signup {
+  .big-row Label {
+    align-self: flex-start;
+  }
 }

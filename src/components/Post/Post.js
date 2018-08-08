@@ -1,26 +1,18 @@
+/* React */
 import React, { Component } from 'react';
+
+/* Assets */
 import './Post.css';
 
-let post = {
-  date: 'December 7, 2017',
-  author: 'Neil Young',
-  comments: ['Great job!', 'No way!'],
-  content: 'what going on tho!'
-};
-
 class Post extends Component {
-  constructor(props) {
-    super(props);
-    this.store = this.props.store;
-  }
-
   render() {
     return (
-      <div className="Post">
-        <h4>Post on {post.date}</h4>
-        <p>{post.content}</p>
-        <h5>Comments</h5>
-        {post.comments && <p>{post.comments}</p>}
+      <div className="post">
+        <h4>content: {this.props.content}</h4>
+        <p>attachment: {this.props.attachment}</p>
+        <p>postId: {this.props.id}</p>
+        <button onClick={this.props.delete}>Delete post</button>
+        <button onClick={this.props.show}>See Post</button>
       </div>
     );
   }

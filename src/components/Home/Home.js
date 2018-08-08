@@ -1,6 +1,8 @@
+/* React */
 import React, { Component } from 'react';
-import './Home.css';
 
+/* Style assets */
+import './Home.css';
 import logo from '../../assets/img/bandit-logo.png';
 
 class Home extends Component {
@@ -21,8 +23,7 @@ class Home extends Component {
             <div className="col-sm">
               <h5>
                 BANDit is your place to meet other musicians who share your
-                tastes in music. <br />
-                <button className="btn">Sign up!</button>
+                tastes in music.
               </h5>
             </div>
           </div>

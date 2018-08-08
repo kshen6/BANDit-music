@@ -1,11 +1,13 @@
 export default {
+  MAX_PHOTO_SIZE: 5000000,
   s3: {
     REGION: 'us-east-1',
     BUCKET: 'bandituseruploads'
   },
   apiGateway: {
     REGION: 'us-east-1',
-    URL: 'https://4g7llowddj.execute-api.us-east-1.amazonaws.com/prod/'
+    post_URL: 'https://4g7llowddj.execute-api.us-east-1.amazonaws.com/prod',
+    user_URL: 'https://9pwbyj6hrj.execute-api.us-east-1.amazonaws.com/prod'
   },
   cognito: {
     REGION: 'us-east-1',

@@ -11,7 +11,6 @@ import store from './redux/store/index';
 /* Amplify */
 import Amplify from 'aws-amplify';
 import config from './Amplify.config';
-
 Amplify.configure({
   Auth: {
     mandatorySignIn: true,
@@ -28,8 +27,13 @@ Amplify.configure({
   API: {
     endpoints: [
       {
-        name: 'bandituserapi',
-        endpoint: config.apiGateway.URL,
+        name: 'postapi',
+        endpoint: config.apiGateway.post_URL,
+        region: config.apiGateway.REGION
+      },
+      {
+        name: 'userapi',
+        endpoint: config.apiGateway.user_URL,
         region: config.apiGateway.REGION
       }
     ]

@@ -1,21 +1,13 @@
+/* React, Redux */
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
+/* Assets */
+import { Col } from 'reactstrap';
 import './Marketplace.css';
 
-function user(details) {
-  this.name = details.name;
-  this.onTheLook = true;
-  this.instrument = null;
-  this.greeting = function() {
-    if (this.onTheLook) {
-      return 'Lets find you another musician!';
-    }
-    return 'Nice to see youve joined a band!';
-  };
-}
-
-let users = {
-  userList: ['Kendrick', 'Jason', 'Tyler']
+const mapStateToProps = state => {
+  return { logged: state.logged };
 };
 
 class UserCard extends Component {
@@ -24,39 +16,26 @@ class UserCard extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      looking: true,
-      instrument: null,
-      text: ''
+      genre: ['rock', 'indie', 'chill'],
+      program: 'MS in CS',
+      year: '2021',
+      location: 'Rains Rm 164'
     };
   }
 
   render() {
-    let user1 = new user({ name: 'Kendrick Shen' });
-    user1.onTheLook = false;
-
     return (
-      <div className="UserCard">
-        <h1>{this.props.name}</h1>
-        <h2>
-          {this.props.name} is looking for jam sessions: {this.state.looking}{' '}
-        </h2>
-        <h3>
-          {this.props.name} plays the {this.state.instrument}{' '}
-        </h3>
-        <button onClick={() => this.setState({ looking: false })}>
-          {' '}
-          Click to turn off searching{' '}
-        </button>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="instrument">Instrument played:</label>
-          <input
-            id="instrument"
-            onChange={this.handleChange}
-            value={this.state.text}
-          />
-          <button>Submit</button>
-        </form>
-        {user1.greeting()}
+      <div className="userCard">
+        <h4>{this.props.name}</h4>
+        <h6>{this.state.program + ' ' + this.state.year}</h6>
+        <h6>{this.state.location}</h6>
+        <p>
+          Genres:{' '}
+          {this.state.genre.map(genre => (
+            <span key={genre.id}>{genre + ' '}</span>
+          ))}
+        </p>
+        <a>View {this.props.name + "'s"} profile</a>
       </div>
     );
   }
@@ -77,39 +56,41 @@ class UserCard extends Component {
   }
 }
 
-class UserList extends Component {
+class ConnectedMarketplace extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      userList: ['Kendrick', 'Tyler', 'Jason'],
-      numUsers: 3
-    };
+    this.ensure = this.ensure.bind(this);
   }
 
-  displayUser(user) {
-    return <UserCard name={user} />;
+  ensureAuth() {
+    return (
+      <p>
+        Please <button onClick={this.ensure}>login</button> to view this
+        content.
+      </p>
+    );
   }
 
-  render() {
-    return <div className="UserList" />;
-  }
-}
-
-class Marketplace extends Component {
-  constructor(props) {
-    super(props);
-    this.store = this.props.store;
+  ensure() {
+    this.props.history.push('auth');
   }
 
   render() {
     return (
-      <div className="Marketplace">
-        <UserList />
-        <h3>Users:</h3>
-        <ol>{users.userList.map(user => <li>{user}</li>)}</ol>
+      <div className="marketplace">
+        {this.props.logged && (
+          <Col md="8">
+            <UserCard name="Kendrick Shen" />
+            <UserCard name="Eric Loreaux" />
+            <UserCard name="Joseph Hennessey" />
+          </Col>
+        )}
+        {!this.props.logged && this.ensureAuth()}
       </div>
     );
   }
 }
+
+const Marketplace = connect(mapStateToProps)(ConnectedMarketplace);
 
 export default Marketplace;
