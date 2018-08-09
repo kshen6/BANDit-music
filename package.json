@@ -42,6 +42,8 @@
     "build-js": "react-scripts build",
     "build": "npm-run-all build-css build-js",
     "test": "react-scripts test --env=jsdom",
+    "predeploy": "npm run build",
+    "deploy": "aws s3 sync build/ s3://bandit-user-uploads --delete",
     "eject": "react-scripts eject"
   },
   "devDependencies": {

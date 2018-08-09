@@ -1,6 +1,6 @@
 /* React, Redux */
 import React, { Component } from 'react';
-import { NavLink, HashRouter, withRouter } from 'react-router-dom';
+import { HashRouter, NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { toggleLogged } from '../../redux/actions/index';
 
