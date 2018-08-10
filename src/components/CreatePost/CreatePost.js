@@ -14,6 +14,7 @@ import Loader from '../Loader/Loader';
 import { API } from 'aws-amplify';
 import { withRouter } from 'react-router-dom';
 import './CreatePost.css';
+import * as Datetime from 'react-datetime';
 
 class CreatePost extends Component {
   constructor(props) {
@@ -21,9 +22,11 @@ class CreatePost extends Component {
 
     this.state = {
       loading: null,
+      subject: '',
       content: '',
-      attachment: '',
-      type: 'Create new...',
+      location: '',
+      time: '',
+      postType: 'Create new...',
       dropdownOpen: false
     };
 
@@ -40,7 +43,7 @@ class CreatePost extends Component {
   }
 
   validatePost() {
-    return this.state.content.length > 0;
+    return this.state.subject.length && this.state.content.length;
   }
 
   handleChange = e => {
@@ -61,8 +64,11 @@ class CreatePost extends Component {
 
     try {
       await this.createPost({
+        postType: this.state.postType,
+        subject: this.state.subject,
         content: this.state.content,
-        attachment: this.state.attachment
+        location: this.state.postType === 'Post' ? null : this.state.location,
+        time: this.state.postType === 'Post' ? null : this.state.time
       });
       window.location.reload();
     } catch (e) {
@@ -72,10 +78,11 @@ class CreatePost extends Component {
     this.setState({ loading: false });
   };
 
-  handleDrop(type) {
+  handleDrop(postType) {
     this.setState({
-      type: type
+      postType: postType
     });
+    this.forceUpdate();
   }
 
   render() {
@@ -83,7 +90,7 @@ class CreatePost extends Component {
       <Form className="createPost" onSubmit={this.handleSubmit}>
         <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
           <DropdownToggle id="b-d-toggle" caret>
-            {this.state.type}
+            {this.state.postType}
           </DropdownToggle>
           <DropdownMenu>
             <DropdownItem disabled>Create new...</DropdownItem>
@@ -95,36 +102,97 @@ class CreatePost extends Component {
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
-        <FormGroup row>
-          <Label htmlFor="content" sm={2}>
-            Content:
-          </Label>
-          <Col md>
-            <Input
-              type="text"
-              name="content"
-              id="content-input"
-              placeholder=""
-              value={this.state.content}
-              onChange={this.handleChange}
-            />
-          </Col>
-        </FormGroup>
-        <FormGroup row>
-          <Label htmlFor="attachment" sm={2}>
-            Attachment:
-          </Label>
-          <Col md>
-            <Input
-              type="input"
-              name="attachment"
-              id="attachment-input"
-              placeholder=""
-              value={this.state.attachment}
-              onChange={this.handleChange}
-            />
-          </Col>
-        </FormGroup>
+        {this.state.postType === 'Post' && (
+          <div>
+            <FormGroup row>
+              <Label htmlFor="subject" sm={2}>
+                Subject:
+              </Label>
+              <Col md={6}>
+                <Input
+                  type="text"
+                  name="subject"
+                  id="subject-input"
+                  placeholder=""
+                  value={this.state.subject}
+                  onChange={this.handleChange}
+                />
+              </Col>
+            </FormGroup>
+            <FormGroup row>
+              <Label htmlFor="content" sm={2}>
+                Content:
+              </Label>
+              <Col md={6}>
+                <Input
+                  type="textarea"
+                  name="content"
+                  id="content-input"
+                  placeholder=""
+                  value={this.state.content}
+                  onChange={this.handleChange}
+                />
+              </Col>
+            </FormGroup>
+          </div>
+        )}
+        {this.state.postType === 'Event' && (
+          <div>
+            <FormGroup row>
+              <Label htmlFor="event" sm={2}>
+                Event Name:
+              </Label>
+              <Col md={6}>
+                <Input
+                  type="text"
+                  name="subject"
+                  id="event-input"
+                  placeholder=""
+                  value={this.state.subject}
+                  onChange={this.handleChange}
+                />
+              </Col>
+            </FormGroup>
+            <FormGroup row>
+              <Label htmlFor="description" sm={2}>
+                Description:
+              </Label>
+              <Col md={6}>
+                <Input
+                  type="textarea"
+                  name="content"
+                  id="content-input"
+                  placeholder=""
+                  value={this.state.content}
+                  onChange={this.handleChange}
+                />
+              </Col>
+            </FormGroup>
+            <FormGroup row>
+              <Label htmlFor="location" sm={2}>
+                Location:
+              </Label>
+              <Col md={6}>
+                <Input
+                  type="textarea"
+                  name="location"
+                  id="location-input"
+                  placeholder=""
+                  value={this.state.location}
+                  onChange={this.handleChange}
+                />
+              </Col>
+            </FormGroup>
+            <FormGroup row>
+              <Label htmlFor="time" sm={2}>
+                Date and time:
+              </Label>
+              <Col md={6}>
+                <Datetime name="time" value={this.state.time} />
+              </Col>
+            </FormGroup>
+          </div>
+        )}
         <FormGroup check row>
           <Col id="l-row">
             <Loader

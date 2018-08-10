@@ -79,6 +79,7 @@ class ConnectedLogin extends Component {
           </Label>
           <Col md={9}>
             <Input
+              autoFocus={true}
               type="text"
               name="email"
               id="email-input"
