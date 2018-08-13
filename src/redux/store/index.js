@@ -5,8 +5,8 @@
  */
 
 import { createStore } from 'redux';
-import banditreducers from '../reducers/index';
+import reducers from '../reducers/index';
 
-const store = createStore(banditreducers);
+const store = createStore(reducers);
 
 export default store;

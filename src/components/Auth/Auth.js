@@ -4,7 +4,7 @@ import { Modal, ModalBody } from 'reactstrap';
 import { connect } from 'react-redux';
 
 /* Assets */
-import './Auth.css';
+import '../../styles/Auth/Auth.css';
 import Login from './Login';
 import Signup from './Signup';
 
@@ -39,7 +39,6 @@ class Authenticate extends Component {
   render() {
     return (
       <div className="Auth">
-        {/* {this.props.logged && this.props.history.push('/')} */}
         <Modal
           autoFocus={true}
           size="md"
@@ -60,9 +59,9 @@ class Authenticate extends Component {
   }
 }
 
-const Profile = connect(mapStateToProps)(Authenticate);
+const Auth_ = connect(mapStateToProps)(Authenticate);
 
-export default Profile;
+export default Auth_;
 
 /*
 class ConnectedLogged extends Component {

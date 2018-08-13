@@ -1,0 +1,19 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+$site-primary-color: white; // rgb(231, 211, 211);
+
+.App {
+  font-family: Raleway, Lato, 'Lucida Sans', Arial;
+  color: black;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  background-color: $site-primary-color;
+  .page {
+    padding: 2rem 3rem;
+  }
+}
+
+.container-fluid {
+  margin: 0 !important;
+  padding: 0 !important;
+}

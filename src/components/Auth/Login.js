@@ -4,8 +4,9 @@ import { withRouter } from 'react-router-dom';
 import { Col, Form, FormGroup, FormText, Label, Input } from 'reactstrap';
 import { Auth } from 'aws-amplify';
 import { connect } from 'react-redux';
-import { toggleLogged } from '../../redux/actions/index';
-import Loader from '../Loader/Loader';
+import { toggleLogged } from '../../redux/actions';
+import Loader from '../ui/Loader';
+import InlineButton from '../ui/InlineButton';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -46,6 +47,7 @@ class ConnectedLogin extends Component {
       await Auth.signIn(this.state.email, this.state.password);
       this.props.toggleLogged(true); //redux!
       this.props.history.push('/');
+      window.location.reload();
     } catch (e) {
       console.log(e.message); //TODO: remove this
       let response = '';
@@ -105,7 +107,7 @@ class ConnectedLogin extends Component {
           </Col>
         </FormGroup>
         <FormGroup check row>
-          <Col md={3} className="no-padding">
+          <Col md className="no-padding">
             <Loader
               disabled={false}
               type="submit"
@@ -116,9 +118,7 @@ class ConnectedLogin extends Component {
           </Col>
           <Col md={9} className="no-padding">
             or sign up{' '}
-            <span className="alt-span" onClick={() => this.props.onClick()}>
-              here
-            </span>.
+            <InlineButton text="here" onClick={() => this.props.onClick()} />.
           </Col>
           <FormText>{this.state.response}</FormText>
         </FormGroup>

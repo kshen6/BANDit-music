@@ -2,23 +2,39 @@
 import React, { Component } from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { toggleLogged } from '../redux/actions/index';
+import { toggleLogged, saveUserInfo } from '../redux/actions/index';
 
-import { Auth } from 'aws-amplify';
+import { Auth, API } from 'aws-amplify';
 
 /* Components for Router to render */
-import BANDitHead from './BANDitHead/BANDitHead';
-import Home from './Home/Home';
-import Marketplace from './Marketplace/Marketplace';
-import Activity from './Activity/Activity';
-import Profile from './Profile/Profile';
-import Login from './Auth/Auth';
-import OnePost from './Post/OnePost';
-import './App/App.css';
+import BANDitHead from './ui/BANDitHead';
+import Home from './pages/Home';
+import Marketplace from './pages/Marketplace';
+import Activity from './pages/Activity';
+import Profile from './pages/Profile';
+import Login from './auth/Auth';
+import OnePost from './posts/OnePost';
+import '../styles/App/App.css';
 
 const mapDispatchToProps = dispatch => {
   return {
-    toggleLogged: logged => dispatch(toggleLogged(logged))
+    toggleLogged: logged => dispatch(toggleLogged(logged)),
+    saveUserInfo: (
+      preferred_name,
+      programAndYear,
+      residence,
+      genres,
+      instruments
+    ) =>
+      dispatch(
+        saveUserInfo(
+          preferred_name,
+          programAndYear,
+          residence,
+          genres,
+          instruments
+        )
+      )
   };
 };
 
@@ -28,6 +44,23 @@ class ConnectedApp extends Component {
     try {
       if (await Auth.currentSession()) {
         this.props.toggleLogged(true);
+        let idId = await Auth.currentUserInfo();
+        let user = await API.get('userapi', `/banditusers/${idId.id}`);
+        if (user) {
+          let savedUser = {
+            preferred_name: user.preferred_name,
+            programAndYear: user.programAndYear,
+            residence: user.residence,
+            genres: user.genres,
+            instruments: user.instruments
+          };
+          this.props.saveUserInfo(savedUser);
+          console.log('successful');
+          console.log(user);
+        } else {
+          this.props.saveUserInfo(null);
+          console.log('no user');
+        }
       }
     } catch (e) {
       if (e !== 'No current user') {

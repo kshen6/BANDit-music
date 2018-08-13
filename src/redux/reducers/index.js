@@ -4,11 +4,11 @@
  * 2nd arg: action
  */
 
-import { LOGGED } from '../../assets/constants/actiontypes';
+import { LOGGED, USER } from '../../assets/constants/actiontypes';
 
 const initState = {
   logged: false,
-  user: []
+  user: {}
 };
 
 const reducer = (state = initState, action) => {
@@ -16,6 +16,10 @@ const reducer = (state = initState, action) => {
     case LOGGED:
       return Object.assign({}, state, {
         logged: action.logged
+      });
+    case USER:
+      return Object.assign({}, state, {
+        user: action.user
       });
     default:
       return state;

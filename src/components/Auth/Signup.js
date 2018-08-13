@@ -13,7 +13,7 @@ import {
 import { Auth } from 'aws-amplify';
 import { connect } from 'react-redux';
 import { toggleLogged } from '../../redux/actions/index';
-import Loader from '../Loader/Loader';
+import Loader from '../ui/Loader';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -172,7 +172,7 @@ class ConnectedSignup extends Component {
           </Col>
         </FormGroup>
         <FormGroup check row>
-          <Col md={3} className="no-padding">
+          <Col md className="no-padding">
             <Loader
               disabled={this.validate()}
               type="submit"

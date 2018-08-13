@@ -46,7 +46,8 @@
     "build": "npm-run-all build-css build-js",
     "test": "react-scripts test --env=jsdom",
     "predeploy": "npm run build",
-    "deploy": "aws s3 sync build/ s3://bandit-user-uploads --delete",
+    "deploy": "aws s3 sync build/ s3://bandit-file-storage --delete",
+    "postdeploy": "aws cloudfront create-invalidation --distribution-id E11WI1HV1G0VO --paths '/*' && aws cloudfront create-invalidation --distribution-id E84A326ZKGQ5W --paths '/*'",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
