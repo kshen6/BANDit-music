@@ -13,6 +13,7 @@ import {
 import { Auth } from 'aws-amplify';
 import { connect } from 'react-redux';
 import { toggleLogged } from '../../redux/actions/index';
+import InlineButton from '../ui/InlineButton';
 import Loader from '../ui/Loader';
 
 const mapDispatchToProps = dispatch => {
@@ -40,10 +41,8 @@ class ConnectedSignup extends Component {
   }
 
   handleChange = e => {
-    const value = e.target.value;
-    const name = e.target.name;
     this.setState({
-      [name]: value
+      [e.target.name]: e.target.value
     });
   };
 
@@ -73,7 +72,7 @@ class ConnectedSignup extends Component {
           response = 'Username has been taken. Please sign in';
           break;
       }
-      if (!this.state.email.length || !this.state.password.length) {
+      if (!this.state.email.length || !this.state.password1.length) {
         response =
           'Please provide a valid username and password longer than 6 characters.';
       }
@@ -114,6 +113,7 @@ class ConnectedSignup extends Component {
           </Label>
           <Col md={9}>
             <Input
+              autoFocus={true}
               type="text"
               name="name"
               id="name-input"
@@ -129,7 +129,7 @@ class ConnectedSignup extends Component {
           </Label>
           <Col md={9}>
             <Input
-              type="text"
+              type="email"
               name="email"
               id="email-input"
               placeholder="example@stanford.edu"
@@ -183,9 +183,7 @@ class ConnectedSignup extends Component {
           </Col>
           <Col md={9} className="no-padding">
             or log in{' '}
-            <span className="alt-span" onClick={() => this.props.onClick()}>
-              here
-            </span>.
+            <InlineButton text="here" onClick={() => this.props.onClick()} />.
           </Col>
           <FormText>{this.state.response}</FormText>
         </FormGroup>
@@ -224,7 +222,7 @@ class ConnectedSignup extends Component {
         </FormGroup>
         <span>
           Have an account? Login in{' '}
-          <Button onClick={() => this.props.onClick()}>here</Button>
+          <InlineButton text="here" onClick={() => this.props.onClick()} />.
         </span>
       </Form>
     );

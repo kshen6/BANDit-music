@@ -13,13 +13,20 @@ import {
   DropdownItem
 } from 'reactstrap';
 import * as Datetime from 'react-datetime';
+import { connect } from 'react-redux';
 
 /* Assets */
 import { API } from 'aws-amplify';
 import Loader from '../ui/Loader';
 import '../../styles/posts/CreatePost/CreatePost.css';
 
-class CreatePost extends Component {
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  };
+};
+
+class ConnectedCreatePost extends Component {
   constructor(props) {
     super(props);
 
@@ -70,8 +77,9 @@ class CreatePost extends Component {
         postType: this.state.postType,
         subject: this.state.subject,
         content: this.state.content,
-        location: this.state.postType === 'Post' ? null : this.state.location,
-        time: this.state.postType === 'Post' ? null : this.state.time
+        location: this.state.location.length ? this.state.location : null,
+        time: this.state.time.length ? this.state.time : null,
+        author: this.props.user.preferred_name
       });
       window.location.reload();
     } catch (e) {
@@ -211,5 +219,7 @@ class CreatePost extends Component {
     );
   }
 }
+
+const CreatePost = connect(mapStateToProps)(ConnectedCreatePost);
 
 export default withRouter(CreatePost);

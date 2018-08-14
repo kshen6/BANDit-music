@@ -69,6 +69,7 @@ class PostList extends Component {
                 <Post
                   subject={post.subject}
                   content={post.content}
+                  author={post.author}
                   updatedAt={post.updatedAt}
                   key={post.postId}
                   id={post.postId}
@@ -79,6 +80,7 @@ class PostList extends Component {
                 <Event
                   subject={post.subject}
                   content={post.content}
+                  author={post.author}
                   updatedAt={post.updatedAt}
                   location={post.location}
                   time={post.time}

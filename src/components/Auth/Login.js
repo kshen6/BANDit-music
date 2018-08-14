@@ -82,7 +82,7 @@ class ConnectedLogin extends Component {
           <Col md={9}>
             <Input
               autoFocus={true}
-              type="text"
+              type="email"
               name="email"
               id="email-input"
               placeholder="example@stanford.edu"

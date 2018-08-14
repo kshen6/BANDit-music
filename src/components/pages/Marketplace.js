@@ -1,7 +1,7 @@
 /* React, Redux */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Col } from 'reactstrap';
+import { Col, Row } from 'reactstrap';
 
 /* Assets */
 import { API } from 'aws-amplify';
@@ -9,17 +9,39 @@ import '../../styles/pages/Marketplace/Marketplace.css';
 import InlineButton from '../ui/InlineButton';
 
 const mapStateToProps = state => {
-  return { logged: state.logged };
+  return {
+    logged: state.logged
+  };
 };
 
 function UserCard(props) {
   return (
     <div className="userCard">
       <h4>{props.user.preferred_name}</h4>
-      <h6>Program and Year: {props.user.programAndYear}</h6>
-      <h6>Residence: {props.user.residence}</h6>
-      <p>Genres: {props.user.genres}</p>
-      <p>Instruments: {props.user.instruments}</p>
+      <Row>
+        <Col sm={3}>
+          <h6>
+            <i className="fa fa-home" /> | {props.user.programAndYear}
+          </h6>
+        </Col>
+        <Col sm={3}>
+          <h6>
+            <i className="fa fa-university" /> | {props.user.residence}
+          </h6>
+        </Col>
+      </Row>
+      <Row>
+        <Col sm={3}>
+          <p>
+            <i className="fa fa-headphones" /> | {props.user.genres}
+          </p>
+        </Col>
+        <Col sm={3}>
+          <p>
+            <i className="fa fa-music" /> | {props.user.instruments}
+          </p>
+        </Col>
+      </Row>
       <a>View {props.user.preferred_name + "'s"} profile</a>
     </div>
   );
@@ -39,7 +61,7 @@ class ConnectedMarketplace extends Component {
       const users = await this.users();
       this.setState({ users });
     } catch (e) {
-      alert(e);
+      console.log(e);
     }
   }
 
@@ -65,9 +87,12 @@ class ConnectedMarketplace extends Component {
       <div className="marketplace page">
         {!this.props.logged && this.ensureAuth()}
         {this.props.logged && (
-          <Col md="8">
-            {this.state.users.map(user => <UserCard user={user} />)}
-          </Col>
+          <div>
+            <h4>Musicians</h4>
+            <Col md="8">
+              {this.state.users.map(user => <UserCard user={user} />)}
+            </Col>
+          </div>
         )}
       </div>
     );
