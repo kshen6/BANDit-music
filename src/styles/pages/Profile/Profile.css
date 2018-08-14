@@ -1,0 +1,57 @@
+.UserInfo {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1.4rem;
+}
+.UserInfo h6 {
+  display: inline;
+}
+.UserInfo i {
+  padding-right: 1.5rem;
+}
+.UserInfo div {
+  margin: 1rem;
+}
+.UserInfo img {
+  height: 12rem;
+  width: 10rem;
+  overflow: hidden;
+  flex-shrink: 0;
+  border-radius: 10%;
+}
+.UserInfo .UserDetails {
+  flex-basis: 16rem;
+  flex-grow: 0.2;
+  flex-shrink: 1;
+}
+.UserInfo .UserDetails h5,
+.UserInfo .UserDetails span {
+  font-weight: 450;
+}
+
+.EditAccount input,
+.Login input {
+  background-color: inherit;
+  border: none;
+  border-bottom: 2px solid grey;
+  padding: 0.5rem 0.9rem;
+  margin: 0.3rem 0;
+  box-sizing: border-box;
+  border-radius: 0;
+}
+.EditAccount input:focus,
+.Login input:focus {
+  border-bottom: 2px solid black;
+  background-color: inherit;
+}
+
+.EditAccount .row,
+.Login .row {
+  display: flex;
+  align-items: center;
+}
+
+.EditAccount .big-row label,
+.Login .big-row label {
+  align-self: flex-start;
+}

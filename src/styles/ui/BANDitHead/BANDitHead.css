@@ -1,0 +1,78 @@
+.BANDitHead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: white;
+  overflow: hidden;
+  font-size: 1.1rem;
+  -webkit-box-shadow: 0px 5px 8px -2px #b3b3b3;
+  -moz-box-shadow: 0px 5px 8px -2px #b3b3b3;
+  box-shadow: 0px 5px 8px -2px #b3b3b3;
+}
+.BANDitHead img {
+  max-height: 2.5rem;
+}
+.BANDitHead * {
+  margin: 0 0.6rem;
+}
+.BANDitHead span {
+  margin: 0;
+  padding: 0;
+}
+.BANDitHead i {
+  margin: 0;
+}
+@media only screen and (min-width: 0px) and (max-width: 436px) {
+  .BANDitHead .link span {
+    display: none;
+  }
+}
+@media only screen and (min-width: 437px) {
+  .BANDitHead svg.svg-inline--fa,
+  .BANDitHead i {
+    display: none;
+  }
+  .BANDitHead .link:before,
+  .BANDitHead .link:after {
+    position: absolute;
+    color: #e7d3d3;
+    opacity: 0;
+    top: inherit;
+    transition: all 0.2s;
+    font-weight: bolder;
+  }
+  .BANDitHead .link:before {
+    content: '(';
+    left: 0px;
+    transform: translateX(10px);
+  }
+  .BANDitHead .link:after {
+    content: ')';
+    right: 0px;
+    transform: translateX(-10px);
+  }
+  .BANDitHead .link:hover:before,
+  .BANDitHead :hover:after {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+.BANDitHead .link {
+  color: black;
+  text-decoration: none;
+  padding: 1.5rem 0.8rem;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+}
+.BANDitHead .link:hover {
+  text-decoration: none;
+  color: inherit;
+}
+.BANDitHead .auth {
+  margin-right: 1.8em;
+  margin-left: auto;
+  color: black;
+  text-decoration: none;
+}

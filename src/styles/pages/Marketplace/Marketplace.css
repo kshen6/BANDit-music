@@ -1,0 +1,27 @@
+.userCard {
+  padding: 1rem;
+  margin: 1rem 0;
+  -webkit-box-shadow: 0px 3px 7px 0px #ababab;
+  -moz-box-shadow: 0px 3px 7px 0px #ababab;
+  box-shadow: 0px 3px 7px 0px #ababab;
+}
+.userCard span {
+  margin-right: 1rem;
+  padding: 0 1rem;
+  border-radius: 2rem;
+  background-color: #e7d3d3;
+}
+.userCard a {
+  color: inherit;
+}
+.userCard a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+.userCard a:hover {
+  text-decoration: none;
+}
+
+button:hover {
+  cursor: pointer;
+}

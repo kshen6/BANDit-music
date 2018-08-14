@@ -18,11 +18,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# vestiges from create-react-app
-/src/index.js
-
 # Practice
 /archived/
 
 # Removing CSS files (build products) from src control
-src/**/*.css
+src/styles/*/*.css

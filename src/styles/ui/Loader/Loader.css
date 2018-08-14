@@ -1,0 +1,23 @@
+.spinning {
+  margin-right: 7px;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  from {
+    transform: scale(1) rotate(0deg);
+  }
+  to {
+    transform: scale(1) rotate(360deg);
+  }
+}
+
+#bandit-loader {
+  background-color: inherit;
+  border-radius: 0.1rem;
+  color: inherit;
+}
+#bandit-loader:hover {
+  background-color: #f18787;
+  color: white;
+}
