@@ -1,0 +1,42 @@
+.Auth {
+  font-family: Raleway, Lato, 'Lucida Sans', Arial;
+}
+
+.modal-content {
+  border-radius: 0 !important;
+}
+
+.login,
+.signup {
+  font-family: Raleway, Lato, 'Lucida Sans', Arial;
+  padding: 2rem 3rem;
+}
+.login input,
+.signup input {
+  background-color: inherit;
+  border: none;
+  border-bottom: 2px solid grey;
+  padding: 0.5rem 0.9rem;
+  margin: 0.3rem 0;
+  box-sizing: border-box;
+  border-radius: 0;
+}
+.login input:focus,
+.signup input:focus {
+  border-bottom: 2px solid grey;
+  background-color: inherit;
+}
+.login .row,
+.signup .row {
+  display: flex;
+  align-items: center;
+}
+.login .no-padding,
+.signup .no-padding {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.signup .big-row label {
+  align-self: flex-start;
+}
