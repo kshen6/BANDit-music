@@ -1,5 +1,4 @@
 export default {
-  MAX_PHOTO_SIZE: 5000000,
   s3: {
     REGION: 'us-east-1',
     BUCKET: 'bandituseruploads'

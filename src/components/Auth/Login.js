@@ -5,8 +5,8 @@ import { Col, Form, FormGroup, FormText, Label, Input } from 'reactstrap';
 import { Auth } from 'aws-amplify';
 import { connect } from 'react-redux';
 import { toggleLogged } from '../../redux/actions';
-import Loader from '../ui/Loader';
-import InlineButton from '../ui/InlineButton';
+import Loader from '../ui/Loader/Loader';
+import InlineButton from '../ui/InlineButton/InlineButton';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -47,20 +47,21 @@ class ConnectedLogin extends Component {
       await Auth.signIn(this.state.email, this.state.password);
       this.props.toggleLogged(true); //redux!
       this.props.history.push('/');
+      /* Reload page so user info will be up-to-date */
       window.location.reload();
     } catch (e) {
-      console.log(e.message); //TODO: remove this
       let response = '';
       switch (e.message) {
         case 'User does not exist.':
           response = 'User has not been registered. Please sign up!';
           break;
         default:
-          response = 'Incorrect username or password.';
+          response = 'Incorrect email or password.';
           break;
       }
       if (!this.state.email.length || !this.state.password.length) {
-        response = 'Please provide a valid username and password.';
+        response =
+          'Please provide a valid email and password with 8 or more characters.';
       }
       this.setState({
         response: response

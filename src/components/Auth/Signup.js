@@ -1,20 +1,14 @@
 /* React, Redux */
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import {
-  Button,
-  Col,
-  Form,
-  FormText,
-  FormGroup,
-  Label,
-  Input
-} from 'reactstrap';
+import { Col, Form, FormText, FormGroup, Label, Input } from 'reactstrap';
 import { Auth } from 'aws-amplify';
 import { connect } from 'react-redux';
 import { toggleLogged } from '../../redux/actions/index';
-import InlineButton from '../ui/InlineButton';
-import Loader from '../ui/Loader';
+import InlineButton from '../ui/InlineButton/InlineButton';
+import Loader from '../ui/Loader/Loader';
+
+import { API } from 'aws-amplify';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -47,10 +41,10 @@ class ConnectedSignup extends Component {
   };
 
   handleSubmit = async e => {
+    e.preventDefault();
     this.setState({
       response: ''
     });
-    e.preventDefault();
     this.setState({ loading: true });
 
     try {
@@ -61,20 +55,35 @@ class ConnectedSignup extends Component {
       this.setState({
         newUser
       });
+      await Auth.signIn(this.state.email, this.state.password1);
+      await this.configUser({
+        preferred_name: this.state.name,
+        programAndYear: null,
+        residence: null,
+        genres: null,
+        instruments: null
+      });
+      this.setState({
+        loading: false
+      });
+      this.props.toggleLogged(true);
+      this.props.history.push('/');
+      window.location.reload();
     } catch (e) {
-      if (e.message === 'UsernameExistsException') {
-        Auth.resendSignUp(this.state.email);
-      }
-      console.log(e.message); //TODO: remove this
+      alert(e.message);
       let response = '';
       switch (e.message) {
+        case 'Password did not conform with policy: Password not long enough':
+          response = 'Please enter a password with 8 or more characters.';
+          break;
         default:
-          response = 'Username has been taken. Please sign in';
+          response =
+            'Email is already in use. Please sign in or try another email!';
           break;
       }
       if (!this.state.email.length || !this.state.password1.length) {
         response =
-          'Please provide a valid username and password longer than 6 characters.';
+          'Please provide a valid email and password with 8 or more characters.';
       }
       this.setState({
         response: response
@@ -84,154 +93,101 @@ class ConnectedSignup extends Component {
     this.setState({ loading: false });
   };
 
-  handleConf = async e => {
-    e.preventDefault();
-    this.setState({ loading: true });
-
-    try {
-      await Auth.confirmSignUp(this.state.email, this.state.confCode);
-      await Auth.signIn(this.state.email, this.state.password1);
-      this.props.toggleLogged(true);
-      this.props.history.push('/');
-    } catch (e) {
-      alert(e.message);
-      this.setState({ loading: false });
-    }
-  };
+  configUser(user) {
+    return API.post('userapi', '/banditusers', {
+      body: user
+    });
+  }
 
   validate() {
-    return !(this.state.password1 === this.state.password2);
-  }
-
-  renderForm() {
-    return (
-      <Form className="signup" onSubmit={this.handleSubmit}>
-        <h4>Make your account</h4>
-        <FormGroup row>
-          <Label htmlFor="name" sm={3}>
-            Name:
-          </Label>
-          <Col md={9}>
-            <Input
-              autoFocus={true}
-              type="text"
-              name="name"
-              id="name-input"
-              placeholder="First and Last"
-              value={this.state.name}
-              onChange={this.handleChange}
-            />
-          </Col>
-        </FormGroup>
-        <FormGroup row>
-          <Label htmlFor="email" sm={3}>
-            Email:
-          </Label>
-          <Col md={9}>
-            <Input
-              type="email"
-              name="email"
-              id="email-input"
-              placeholder="example@stanford.edu"
-              value={this.state.email}
-              onChange={this.handleChange}
-            />
-          </Col>
-        </FormGroup>
-        <FormGroup row>
-          <Label htmlFor="password" sm={3}>
-            Password:
-          </Label>
-          <Col md={9}>
-            <Input
-              type="password"
-              name="password1"
-              id="password-input"
-              placeholder="Your password here..."
-              value={this.state.password}
-              onChange={this.handleChange}
-            />
-          </Col>
-        </FormGroup>
-        <FormGroup row>
-          <Label htmlFor="password" sm={3}>
-            Retype Password:
-          </Label>
-          <Col md={9}>
-            <Input
-              type="password"
-              name="password2"
-              id="password-input"
-              placeholder="Your password here..."
-              value={this.state.password}
-              onChange={this.handleChange}
-            />
-            <FormText color="muted">
-              Please make sure passwords match and are longer than 6 characters!
-            </FormText>
-          </Col>
-        </FormGroup>
-        <FormGroup check row>
-          <Col md className="no-padding">
-            <Loader
-              disabled={this.validate()}
-              type="submit"
-              isLoading={this.state.loading}
-              text="Sign up"
-              loadingText="Confirming"
-            />
-          </Col>
-          <Col md={9} className="no-padding">
-            or log in{' '}
-            <InlineButton text="here" onClick={() => this.props.onClick()} />.
-          </Col>
-          <FormText>{this.state.response}</FormText>
-        </FormGroup>
-      </Form>
-    );
-  }
-
-  renderConf() {
-    return (
-      <Form className="Signup" onSubmit={this.handleConf}>
-        <FormGroup row>
-          <Label htmlFor="name" sm={3}>
-            Confirmation Code sent to your inbox:
-          </Label>
-          <Col md={9}>
-            <Input
-              type="number"
-              name="confCode"
-              id="conf-input"
-              placeholder="XXXXXX"
-              value={this.state.confCode}
-              onChange={this.handleChange}
-            />
-          </Col>
-        </FormGroup>
-        <FormGroup check row>
-          <Col md={{ size: 6, offset: 2 }}>
-            <Loader
-              disabled={false}
-              type="submit"
-              isLoading={this.state.loading}
-              text="Confirm"
-              loadingText="Signing up"
-            />
-          </Col>
-        </FormGroup>
-        <span>
-          Have an account? Login in{' '}
-          <InlineButton text="here" onClick={() => this.props.onClick()} />.
-        </span>
-      </Form>
-    );
+    return this.state.password1 === this.state.password2;
   }
 
   render() {
     return (
       <div className="ConnectedSignup">
-        {this.state.newUser === null ? this.renderForm() : this.renderConf()}
+        <Form className="signup" onSubmit={this.handleSubmit}>
+          <h4>Make your account</h4>
+          <FormGroup row>
+            <Label htmlFor="name" sm={3}>
+              Preferred Name:
+            </Label>
+            <Col md={9}>
+              <Input
+                type="name"
+                name="name"
+                id="name-input"
+                placeholder="First and Last"
+                value={this.state.name}
+                onChange={this.handleChange}
+              />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label htmlFor="email" sm={3}>
+              Email:
+            </Label>
+            <Col md={9}>
+              <Input
+                type="email"
+                name="email"
+                id="email-input"
+                placeholder="example@stanford.edu"
+                value={this.state.email}
+                onChange={this.handleChange}
+              />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label htmlFor="password" sm={3}>
+              Password:
+            </Label>
+            <Col md={9}>
+              <Input
+                type="password"
+                name="password1"
+                id="password-input"
+                placeholder="Your password here..."
+                value={this.state.password}
+                onChange={this.handleChange}
+              />
+            </Col>
+          </FormGroup>
+          <FormGroup row>
+            <Label htmlFor="password" sm={3}>
+              Retype Password:
+            </Label>
+            <Col md={9}>
+              <Input
+                type="password"
+                name="password2"
+                id="password-input"
+                placeholder="Your password here..."
+                value={this.state.password}
+                onChange={this.handleChange}
+              />
+              <FormText color="muted">
+                Please make sure passwords match and are 8 or more characters!
+              </FormText>
+            </Col>
+          </FormGroup>
+          <FormGroup check row>
+            <Col md className="no-padding">
+              <Loader
+                disabled={!this.validate()}
+                type="submit"
+                isLoading={this.state.loading}
+                text="Sign up"
+                loadingText="Confirming"
+              />
+            </Col>
+            <Col md={9} className="no-padding">
+              or log in{' '}
+              <InlineButton text="here" onClick={() => this.props.onClick()} />.
+            </Col>
+            <FormText>{this.state.response}</FormText>
+          </FormGroup>
+        </Form>
       </div>
     );
   }

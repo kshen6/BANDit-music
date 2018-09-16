@@ -1,0 +1,12 @@
+.post {
+  padding: 2rem;
+  margin: 1.5rem 0;
+  -webkit-box-shadow: 0px 3px 7px 0px #ababab;
+  -moz-box-shadow: 0px 3px 7px 0px #ababab;
+  box-shadow: 0px 3px 7px 0px #ababab;
+}
+@media only screen and (min-width: 437px) {
+  .post {
+    max-width: 800px;
+  }
+}

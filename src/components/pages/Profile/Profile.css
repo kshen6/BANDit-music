@@ -1,0 +1,22 @@
+.EditAccount input {
+  background-color: inherit;
+  border: none;
+  border-bottom: 2px solid grey;
+  padding: 0.5rem 0.9rem;
+  margin: 0.3rem 0;
+  box-sizing: border-box;
+  border-radius: 0;
+}
+.EditAccount input:focus {
+  border-bottom: 2px solid black;
+  background-color: inherit;
+}
+
+.EditAccount .row {
+  display: flex;
+  align-items: center;
+}
+
+.EditAccount .big-row label {
+  align-self: flex-start;
+}

@@ -7,14 +7,13 @@ import { toggleLogged, saveUserInfo } from '../redux/actions/index';
 import { Auth, API } from 'aws-amplify';
 
 /* Components for Router to render */
-import BANDitHead from './ui/BANDitHead';
-import Home from './pages/Home';
-import Marketplace from './pages/Marketplace';
-import Activity from './pages/Activity';
-import Profile from './pages/Profile';
-import Login from './auth/Auth';
-import OnePost from './posts/OnePost';
-import '../styles/App/App.css';
+import BANDitHead from './ui/BANDitHead/BANDitHead';
+import Home from './pages/Home/Home';
+import Marketplace from './pages/Marketplace/Marketplace';
+import Activity from './pages/Activity/Activity';
+import Profile from './pages/Profile/Profile';
+import Login from './Auth/Auth';
+import './App/App.css';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -24,7 +23,8 @@ const mapDispatchToProps = dispatch => {
       programAndYear,
       residence,
       genres,
-      instruments
+      instruments,
+      userId
     ) =>
       dispatch(
         saveUserInfo(
@@ -32,7 +32,8 @@ const mapDispatchToProps = dispatch => {
           programAndYear,
           residence,
           genres,
-          instruments
+          instruments,
+          userId
         )
       )
   };
@@ -44,22 +45,21 @@ class ConnectedApp extends Component {
     try {
       if (await Auth.currentSession()) {
         this.props.toggleLogged(true);
-        let idId = await Auth.currentUserInfo();
-        let user = await API.get('userapi', `/banditusers/${idId.id}`);
+        let currSess = await Auth.currentUserInfo();
+        let user = await API.get('userapi', `/banditusers/${currSess.id}`);
         if (user) {
           let savedUser = {
             preferred_name: user.preferred_name,
             programAndYear: user.programAndYear,
             residence: user.residence,
             genres: user.genres,
-            instruments: user.instruments
+            instruments: user.instruments,
+            userId: user.userId,
+            email: currSess.attributes.email
           };
           this.props.saveUserInfo(savedUser);
-          console.log('successful');
-          console.log(user);
         } else {
           this.props.saveUserInfo(null);
-          console.log('no user');
         }
       }
     } catch (e) {
@@ -77,7 +77,6 @@ class ConnectedApp extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/marketplace" component={Marketplace} />
-            <Route path="/activity/:id" exact component={OnePost} />
             <Route path="/activity" exact component={Activity} />
             <Route path="/profile" component={Profile} />
             <Route path="/auth" component={Login} />

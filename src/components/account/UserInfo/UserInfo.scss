@@ -1,0 +1,35 @@
+.UserInfo {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1.4rem;
+  h6 {
+    display: inline;
+  }
+  i {
+    padding-right: 1.5rem;
+  }
+  img {
+    height: 12rem;
+    width: 10rem;
+    overflow: hidden;
+    flex-shrink: 0;
+    border-radius: 10%;
+  }
+  .UserDetails {
+    h5, span {
+      font-weight: 450;
+    }
+  }
+}
+
+.user-edit {
+  margin-top: 1.4rem;
+  max-width: 440px;
+  i {
+    padding-right: 1.5rem;
+  }
+  input {
+    width: 80%;
+    display: inline;
+  }
+}

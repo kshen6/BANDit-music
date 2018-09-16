@@ -4,7 +4,7 @@ import { Modal, ModalBody } from 'reactstrap';
 import { connect } from 'react-redux';
 
 /* Assets */
-import '../../styles/Auth/Auth.css';
+import './Auth.css';
 import Login from './Login';
 import Signup from './Signup';
 
@@ -62,35 +62,3 @@ class Authenticate extends Component {
 const Auth_ = connect(mapStateToProps)(Authenticate);
 
 export default Auth_;
-
-/*
-class ConnectedLogged extends Component {
-  constructor(props) {
-    super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit = async e => {
-    e.preventDefault();
-    try {
-      await Auth.signOut();
-      this.props.toggleLogged(false);
-    } catch (e) {
-      alert(e);
-    }
-  };
-
-  render() {
-    return (
-      <div>
-        <Button onClick={this.handleSubmit}>Sign out</Button>
-      </div>
-    );
-  }
-}
-
-const Logged = connect(
-  null,
-  mapDispatchToProps
-)(ConnectedLogged);
-*/
